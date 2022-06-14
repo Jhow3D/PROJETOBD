@@ -1,0 +1,334 @@
+/* Modelo Fisico Projeto BD AV2 G6: */
+CREATE DATABASE PROJETO_BDV2;
+USE PROJETO_BDV2;
+
+CREATE TABLE ClientePF (
+    codPessoaFisica INTEGER,
+    CPF VARCHAR (40),
+    nome VARCHAR (40),
+    sexo VARCHAR (40),
+    dataNascimento DATE,
+    fk_Cliente_codCliente INTEGER,
+    PRIMARY KEY (codPessoaFisica, fk_Cliente_codCliente)
+);
+
+CREATE TABLE Compra (
+    codCompra INTEGER,
+    dataCompra DATE,
+    precoTotal DECIMAL,
+    nomeFornecedor VARCHAR(100), 
+    PRIMARY KEY (codCompra)
+);
+
+CREATE TABLE Fornecedor_ (
+    CNPJ VARCHAR (40),
+    endereco VARCHAR(40),
+    telefone VARCHAR(40),
+    razaoSocial VARCHAR(100),
+    nomeFornecedor VARCHAR(100),
+    PRIMARY KEY (CNPJ)
+);
+
+CREATE TABLE ClientePJ (
+    codPessoaJuridica INTEGER,
+    CNPJ VARCHAR(40),
+    razaoSocial VARCHAR(100),
+    fk_Cliente_codCliente INTEGER,
+    PRIMARY KEY (codPessoaJuridica, fk_Cliente_codCliente)
+);
+
+CREATE TABLE Funcionarios (
+    codFuncionario INTEGER PRIMARY KEY,
+    CPF VARCHAR(40),
+    email VARCHAR(40),
+    telefone VARCHAR(40),
+    nome VARCHAR(40),
+    endereco VARCHAR(40)
+);
+
+CREATE TABLE Produto (
+    codProduto INTEGER PRIMARY KEY,
+    nome VARCHAR(40),
+    preco FLOAT,
+    descricao VARCHAR(40),
+    tamanho CHAR(3)
+);
+
+CREATE TABLE Cliente (
+    codCliente INTEGER PRIMARY KEY,
+    telefone VARCHAR(40),
+    email VARCHAR(40),
+    endereco VARCHAR(40),
+    bairro VARCHAR(40),
+    cidade VARCHAR(40),
+    UF VARCHAR(40),
+    pais VARCHAR(40)
+);
+
+CREATE TABLE Estoque_ (
+    codEstoque INTEGER PRIMARY KEY,
+    quantidade INTEGER
+    );
+
+CREATE TABLE Gerente (
+    codGerente INTEGER,
+    fk_Funcionarios__codFuncionario INTEGER,
+    PRIMARY KEY (codGerente, fk_Funcionarios__codFuncionario)
+);
+
+CREATE TABLE Vendedor (
+    codVendedor INTEGER,
+    fk_Funcionarios__codFuncionario INTEGER,
+    PRIMARY KEY (codVendedor, fk_Funcionarios__codFuncionario)
+);
+
+CREATE TABLE Venda (
+    codVenda INTEGER PRIMARY KEY,
+    dataVenda DATE,
+    precoTotal FLOAT
+);
+
+CREATE TABLE itensVendidos (
+    codItensVendidos INTEGER PRIMARY KEY,
+    precodaVenda FLOAT,
+    quantidade INTEGER
+);
+
+CREATE TABLE itensComprados (
+    codItemComprado INTEGER PRIMARY KEY,
+    precoCompra FLOAT,
+    quantidade INTEGER
+);
+
+CREATE TABLE Supervisiona (
+    fk_Funcionarios__codFuncionario INTEGER,
+    fk_Funcionarios__codFuncionario_ INTEGER
+);
+
+CREATE TABLE Decrementa (
+    fk_Estoque__codEstoque INTEGER,
+    fk_itensVendidos_codItensVendidos INTEGER,
+    codItensVendidos INTEGER,
+    codEstoque INTEGER,
+    PRIMARY KEY (codItensVendidos, codEstoque)
+);
+
+CREATE TABLE RealizaC (
+    fk_Funcionarios__codFuncionario INTEGER,
+    fk_Compra_codCompra INTEGER,
+    codFuncionario INTEGER,
+    codCompra INTEGER,
+    PRIMARY KEY (codFuncionario, codCompra)
+);
+
+CREATE TABLE RealizaV (
+    fk_Funcionarios__codFuncionario INTEGER,
+    fk_Venda_codVenda INTEGER,
+    codVenda INTEGER,
+    codFuncionario INTEGER,
+    PRIMARY KEY (codVenda, codFuncionario)
+);
+
+CREATE TABLE ContemV (
+    fk_Cliente_codCliente INTEGER,
+    fk_Venda_codVenda INTEGER,
+    codCliente INTEGER,
+    codVenda INTEGER,
+    PRIMARY KEY (codCliente, codVenda)
+);
+
+CREATE TABLE PossuiV (
+    fk_Venda_codVenda INTEGER,
+    fk_itensVendidos_codItensVendidos INTEGER,
+    codVenda INTEGER,
+    codItensVendidos INTEGER,
+    PRIMARY KEY (codVenda, codItensVendidos)
+);
+
+CREATE TABLE Contem_IV (
+    fk_Produto_codProduto INTEGER,
+    fk_itensVendidos_codItensVendidos INTEGER,
+    codProduto INTEGER,
+    codItensVendidos INTEGER,
+    PRIMARY KEY (codProduto, codItensVendidos)
+);
+
+CREATE TABLE Armazena (
+    fk_Estoque__codEstoque INTEGER,
+    fk_Produto_codProduto INTEGER,
+    codProduto INTEGER,
+    codEstoque INTEGER,
+    PRIMARY KEY (codProduto, codEstoque)
+);
+
+CREATE TABLE ContemF (
+    fk_Fornecedor__CNPJ VARCHAR(100),
+    fk_Compra_codCompra INTEGER,
+    codCompra INTEGER,
+    CNPJ VARCHAR(100),
+    PRIMARY KEY (codCompra, CNPJ)
+);
+
+CREATE TABLE PossuiC (
+    fk_Compra_codCompra INTEGER,
+    fk_itensComprados_codItemComprado INTEGER,
+    codCompra INTEGER,
+    codItemComprado INTEGER,
+    PRIMARY KEY (codCompra, codItemComprado)
+);
+
+CREATE TABLE Contem_IC (
+    fk_Produto_codProduto INTEGER,
+    fk_itensComprados_codItemComprado INTEGER,
+    codItemComprado INTEGER,
+    codProduto INTEGER,
+    PRIMARY KEY (codItemComprado, codProduto)
+);
+
+CREATE TABLE Incrementa (
+    fk_Estoque__codEstoque INTEGER,
+    fk_itensComprados_codItemComprado INTEGER,
+    codEstoque INTEGER,
+    codItemComprado INTEGER,
+    PRIMARY KEY (codEstoque, codItemComprado)
+);
+ 
+ALTER TABLE ClientePF ADD CONSTRAINT FK_ClientePF_2
+    FOREIGN KEY (fk_Cliente_codCliente)
+    REFERENCES Cliente (codCliente)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE ClientePJ ADD CONSTRAINT FK_ClientePJ_2
+    FOREIGN KEY (fk_Cliente_codCliente)
+    REFERENCES Cliente (codCliente)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Gerente ADD CONSTRAINT FK_Gerente_2
+    FOREIGN KEY (fk_Funcionarios__codFuncionario)
+    REFERENCES Funcionarios (codFuncionario)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Vendedor ADD CONSTRAINT FK_Vendedor_2
+    FOREIGN KEY (fk_Funcionarios__codFuncionario)
+    REFERENCES Funcionarios (codFuncionario)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Supervisiona ADD CONSTRAINT FK_Supervisiona_1
+    FOREIGN KEY (fk_Funcionarios__codFuncionario)
+    REFERENCES Funcionarios (codFuncionario)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Supervisiona ADD CONSTRAINT FK_Supervisiona_2
+    FOREIGN KEY (fk_Funcionarios__codFuncionario_)
+    REFERENCES Funcionarios (codFuncionario)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Decrementa ADD CONSTRAINT FK_Decrementa_2
+    FOREIGN KEY (fk_Estoque__codEstoque)
+    REFERENCES Estoque_ (codEstoque)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Decrementa ADD CONSTRAINT FK_Decrementa_3
+    FOREIGN KEY (fk_itensVendidos_codItensVendidos)
+    REFERENCES itensVendidos (codItensVendidos)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Realizac ADD CONSTRAINT FK_Realizac_2
+    FOREIGN KEY (fk_Funcionarios__codFuncionario)
+    REFERENCES Funcionarios (codFuncionario)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Realizac ADD CONSTRAINT FK_Realizac_3
+    FOREIGN KEY (fk_Compra_codCompra)
+    REFERENCES Compra (codCompra)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Realizav ADD CONSTRAINT FK_Realizav_2
+    FOREIGN KEY (fk_Funcionarios__codFuncionario)
+    REFERENCES Funcionarios (codFuncionario)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Realizav ADD CONSTRAINT FK_Realizav_3
+    FOREIGN KEY (fk_Venda_codVenda)
+    REFERENCES Venda (codVenda)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Contemv ADD CONSTRAINT FK_Contemv_2
+    FOREIGN KEY (fk_Cliente_codCliente)
+    REFERENCES Cliente (codCliente)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Contemv ADD CONSTRAINT FK_Contemv_3
+    FOREIGN KEY (fk_Venda_codVenda)
+    REFERENCES Venda (codVenda)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Possuiv ADD CONSTRAINT FK_Possuiv_2
+    FOREIGN KEY (fk_Venda_codVenda)
+    REFERENCES Venda (codVenda)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Possuiv ADD CONSTRAINT FK_Possuiv_3
+    FOREIGN KEY (fk_itensVendidos_codItensVendidos)
+    REFERENCES itensVendidos (codItensVendidos)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Contem_IV ADD CONSTRAINT FK_Contem_IV_2
+    FOREIGN KEY (fk_Produto_codProduto)
+    REFERENCES Produto (codProduto)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Contem_IV ADD CONSTRAINT FK_Contem_IV_3
+    FOREIGN KEY (fk_itensVendidos_codItensVendidos)
+    REFERENCES itensVendidos (codItensVendidos)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Armazena ADD CONSTRAINT FK_Armazena_2
+    FOREIGN KEY (fk_Estoque__codEstoque)
+    REFERENCES Estoque_ (codEstoque)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Armazena ADD CONSTRAINT FK_Armazena_3
+    FOREIGN KEY (fk_Produto_codProduto)
+    REFERENCES Produto (codProduto)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Contemf ADD CONSTRAINT FK_Contemf_2
+    FOREIGN KEY (fk_Fornecedor__CNPJ)
+    REFERENCES Fornecedor_ (CNPJ)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Contemf ADD CONSTRAINT FK_Contemf_3
+    FOREIGN KEY (fk_Compra_codCompra)
+    REFERENCES Compra (codCompra)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Possuic ADD CONSTRAINT FK_Possuic_2
+    FOREIGN KEY (fk_Compra_codCompra)
+    REFERENCES Compra (codCompra)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Possuic ADD CONSTRAINT FK_Possuic_3
+    FOREIGN KEY (fk_itensComprados_codItemComprado)
+    REFERENCES itensComprados (codItemComprado)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Contem_ic ADD CONSTRAINT FK_Contem_ic_2
+    FOREIGN KEY (fk_Produto_codProduto)
+    REFERENCES Produto (codProduto)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Contem_ic ADD CONSTRAINT FK_Contem_ic_3
+    FOREIGN KEY (fk_itensComprados_codItemComprado)
+    REFERENCES itensComprados (codItemComprado)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Incrementa ADD CONSTRAINT FK_Incrementa_2
+    FOREIGN KEY (fk_Estoque__codEstoque)
+    REFERENCES Estoque_ (codEstoque)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Incrementa ADD CONSTRAINT FK_Incrementa_3
+    FOREIGN KEY (fk_itensComprados_codItemComprado)
+    REFERENCES itensComprados (codItemComprado)
+    ON DELETE SET NULL;

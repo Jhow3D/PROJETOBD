@@ -1,0 +1,87 @@
+USE projeto_bdv2;
+
+/* INSERINDO DADOS NA TABELA cliente */
+ INSERT INTO cliente (codCliente, telefone, email, endereco,bairro,cidade,UF,pais) 
+ VALUES (1, '3333-1111','  ','Rua Padre Cabral','Boa Viagem','Recife','PE','Brasil');
+ INSERT INTO cliente (codCliente, telefone, email, endereco,bairro,cidade,UF,pais) 
+ VALUES (2, '3333-2222','  ','Rua Padre Bernadino','Boa Viagem','Recife','PE','Brasil');
+ INSERT INTO cliente (codCliente, telefone, email, endereco,bairro,cidade,UF,pais)  
+ VALUES (3, '3333-3333','  ','Rua Boenos Aires','Espinheiro','Recife','PE','Brasil');
+ INSERT INTO cliente (codCliente, telefone, email, endereco,bairro,cidade,UF,pais) 
+ VALUES (4, '3333-4444','  ','Praça Coronel','Centro','Natal','RN','Brasil');
+ INSERT INTO cliente (codCliente, telefone, email, endereco,bairro,cidade,UF,pais)  
+ VALUES (5, '3333-5555','  ','Rua do Cruzeiro','Centro','Moçoro','RN','Brasil');
+ INSERT INTO cliente (codCliente, telefone, email, endereco,bairro,cidade,UF,pais)  
+ VALUES (6, '3333-6666','  ','Rua do arco','Gramame','João Pessoa','PB','Brasil');
+ INSERT INTO cliente (codCliente, telefone, email, endereco,bairro,cidade,UF,pais) 
+ VALUES (7, '3333-7777','  ','Residencial Novo','Jardins','Campina Grande','PB','Brasil');
+ INSERT INTO cliente (codCliente, telefone, email, endereco,bairro,cidade,UF,pais) 
+ VALUES (8, '3333-8888','  ','Rua do Farol','Farol','Maceio','AL','Brasil');
+ 
+ /* INSERINDO DADOS NAS TABLEAS DE clientepf */
+ INSERT INTO clientepf (codPessoaFisica, CPF, nome, sexo, dataNascimento,fk_Cliente_codCliente) 
+ VALUES (1, 111111111-11,'Carlos Jose','M',14/05/1996,1);
+ INSERT INTO clientepf (codPessoaFisica, CPF, nome, sexo, dataNascimento,fk_Cliente_codCliente) 
+ VALUES (2, 222222222-11,'Jose Joao','M',17/07/1996,2);
+ INSERT INTO clientepf (codPessoaFisica, CPF, nome, sexo, dataNascimento,fk_Cliente_codCliente) 
+ VALUES (3, 333333333-11,'Jonatha Silva','M',11/09/1996,3);
+ INSERT INTO clientepf (codPessoaFisica, CPF, nome, sexo, dataNascimento,fk_Cliente_codCliente) 
+ VALUES (4, 444444444-11,'Maria Carla','F',14/07/1996,4);
+ INSERT INTO clientepf (codPessoaFisica, CPF, nome, sexo, dataNascimento,fk_Cliente_codCliente) 
+ VALUES (5, 555555555-11,'Claudia Santana','M',14/08/1996,5);
+ INSERT INTO clientepf (codPessoaFisica, CPF, nome, sexo, dataNascimento,fk_Cliente_codCliente) 
+ VALUES (6, 666666666-11,'Claudinor Ferreira','M',18/05/1996,6);
+ INSERT INTO clientepf (codPessoaFisica, CPF, nome, sexo, dataNascimento,fk_Cliente_codCliente) 
+ VALUES (7, 777777777-11,'Diego Alves','M',10/05/1996,7);
+ 
+ /* INSERINDO DADOS NAS TABELAS clientepj */
+ INSERT INTO clientepj (codPessoaJuridica, CNPJ, razaoSocial,fk_Cliente_codCliente)
+ VALUES (1, '11.111.111/0001-11','Fornecedores SA',1);
+ INSERT INTO clientepj (codPessoaJuridica, CNPJ, razaoSocial,fk_Cliente_codCliente)
+ VALUES (2, '22.222.222/0001-11','Roupas da Moda SA',2);
+ INSERT INTO clientepj (codPessoaJuridica, CNPJ, razaoSocial,fk_Cliente_codCliente)
+ VALUES (3, '33.333.333/0001-11','Modas Femininas SA',3);
+ INSERT INTO clientepj (codPessoaJuridica, CNPJ, razaoSocial,fk_Cliente_codCliente)
+ VALUES (4, '44.444.444/0001-11','SEA MODAS SA',4);
+ INSERT INTO clientepj (codPessoaJuridica, CNPJ, razaoSocial,fk_Cliente_codCliente)
+ VALUES (5, '55.555.555/0001-11','REACHUELO SA',5);
+ INSERT INTO clientepj (codPessoaJuridica, CNPJ, razaoSocial,fk_Cliente_codCliente)
+ VALUES (1, '66.666.666/0001-11','Magazine lojas SA',6);
+ 
+ /* INSERINDO DADOS NA TABELA produto */
+ INSERT INTO produto (codProduto, nome,preco,tamanho) 
+ VALUES (1,'camisa - masculina',99.90,'P');
+ INSERT INTO produto (codProduto, nome,preco,tamanho)  
+ VALUES (2,'camisa - masculina',99.90,'M');
+ INSERT INTO produto (codProduto, nome,preco,tamanho) 
+ VALUES (3,'camisa - masculina',99.90,'G');
+ INSERT INTO produto (codProduto, nome,preco,tamanho) 
+ VALUES (4,'camisa - masculina',109.99,'GG');
+ INSERT INTO produto (codProduto, nome,preco,tamanho) 
+ VALUES (5,'camisa - feminina',109.99,'P');
+ INSERT INTO produto (codProduto, nome,preco,tamanho) 
+ VALUES (6,'camisa - feminina ',109.99,'M');
+ INSERT INTO produto (codProduto, nome,preco,tamanho) 
+ VALUES (7,'camisa - feminina',109.99,'G');
+ INSERT INTO produto (codProduto, nome,preco,tamanho) 
+ VALUES (8,'camisa - feminina',150.99,'GG');
+ 
+ /* INSERINDO DADOS NA TABELA fornecedor_ */
+ INSERT INTO fornecedor_ (CNPJ, endereco, telefone, razaoSocial) 
+ VALUES ('11.111.111/0001-11','Rua Amelia','3333-2222','Loja das roupas LTDA');
+ INSERT INTO fornecedor_ (CNPJ, endereco, telefone, razaoSocial) 
+ VALUES ('11.222.222/0001-11','Rua Joaquina','3333-1111','Loja dos tecidos LTDA');
+ INSERT INTO fornecedor_ (CNPJ, endereco, telefone, razaoSocial) 
+ VALUES ('11.333.333/0001-33','Av Joao','3333-3333','Tecidolandia LTDA');
+ INSERT INTO fornecedor_ (CNPJ, endereco, telefone, razaoSocial) 
+ VALUES ('11.444.444/0001-44','Av Encanador','3333-444','Revendedora tecidos LTDA');
+ INSERT INTO fornecedor_ (CNPJ, endereco, telefone, razaoSocial) 
+ VALUES ('11.555.555/0001-55','Av Joao Gomes','3333-5555','Melhores tecidos SA');
+ INSERT INTO fornecedor_ (CNPJ, endereco, telefone, razaoSocial) 
+ VALUES ('11.666.666/0001-66','Rua Desembargador','3333-6666','Tecidos da hora LTDA');
+ 
+ 
+ 
+ 
+ 
+ 
